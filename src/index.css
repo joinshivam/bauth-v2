@@ -1,0 +1,130 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+:root[data-theme="light"] {
+  --theme-dark: rgba(255, 255, 255, 0.8);
+  --gray-900: rgb(17, 24, 39);
+  --gray-900-70: rgba(17, 24, 39, 0.384);
+  --gray-800: rgb(31, 41, 55);
+  --gray-700: rgb(55, 65, 81);
+  --gray-600: rgb(75, 85, 99);
+  --gray-500: rgb(107, 114, 125);
+  --gray-400: rgb(156, 163, 175);
+  --gray-200: rgb(229, 231, 235);
+  --gray-100: rgb(243, 244, 246);
+  --gray-50: rgb(250, 250, 251);
+  --blue-600: rgb(37, 99, 235);
+  --blue-50: rgb(239, 246, 255);
+  --theme: rgb(255, 255, 255);
+  --theme-70: rgba(255, 255, 255, 0.1);
+  --slate-300: rgb(203, 213, 225);
+  --slate-50: rgb(248, 250, 252);
+  --slate-50: rgb(248, 250, 252);
+  --lime-50: rgb(247, 254, 231);
+  --indigo-600: rgb(79, 70, 229);
+  --indigo-700: rgb(67, 56, 202);
+  --brand-pinkorange: rgb(240, 121, 105);
+  --brand-pinkorange-shade: rgb(185, 64, 47);
+  --border: rgb(247, 254, 231);
+  --common-blue: rgb(86, 198, 232);
+  --scrollbar-track: var(--gray-100);
+  --scrollbar-thumb: var(--gray-300, rgb(203, 213, 225));
+  --scrollbar-thumb-hover: var(--gray-400);
+}
+
+:root[data-theme="dark"] {
+  --gray-900: rgb(249, 250, 251);
+  --gray-900-70: rgba(249, 250, 251, 0.422);
+  --gray-800: rgb(229, 231, 235);
+  --gray-700: rgb(209, 213, 219);
+  --gray-600: rgb(156, 163, 175);
+  --gray-500: rgb(107, 114, 128);
+  --gray-400: rgb(75, 85, 99);
+  --gray-300: rgb(55, 65, 81);
+  --gray-200: rgb(31, 41, 55);
+  --gray-100: rgb(17, 24, 39);
+  --gray-50: rgb(9, 14, 24);
+  --common-blue: rgb(86, 198, 232);
+  --blue-600: rgb(96, 165, 250);
+  --blue-50: rgb(30, 58, 138);
+  --indigo-700: rgb(165, 180, 252);
+  --indigo-600: rgb(129, 140, 248);
+  --brand-pinkorange: rgb(248, 113, 113);
+  --brand-pinkorange-shade: rgb(212, 74, 74);
+  --slate-300: rgb(51, 65, 85);
+  --slate-50: rgb(15, 23, 42);
+  --lime-50: rgb(20, 83, 45);
+  --theme: rgb(2, 6, 23);
+  --theme-70: rgba(2, 6, 23, 0.1);
+  --theme-dark: rgba(2, 6, 23, 0.9);
+  --border: rgb(30, 41, 59);
+  --scrollbar-track: var(--gray-100);
+  --scrollbar-thumb: var(--gray-300);
+  --scrollbar-thumb-hover: var(--gray-400);
+
+}
+
+:root {
+  --surface: var(--theme);
+  --surface-soft: var(--theme-70);
+  --text-primary: var(--gray-900);
+  --text-secondary: var(--gray-700);
+  --accent: var(--indigo-600);
+  --accent-strong: var(--indigo-700);
+  --brand: var(--brand-pinkorange);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 8px;
+  border: 2px solid var(--scrollbar-track);
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+body {
+  background: var(--theme-var-bg);
+  /* color: var(--theme-var-text); */
+  transition: background 0.2s ease, color 0.2s ease;
+  /* color: #fafafb;
+  color: #4290EC;
+  color: #A64DD9;
+  color: #F07969;
+  color: #F2A04C;
+  color: #ED8AC7;
+  color: #56C6E8;
+  color: #56c6e8; */
+
+}

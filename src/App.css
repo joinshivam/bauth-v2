@@ -1,0 +1,275 @@
+.btn-primary {
+  @apply bg-blue-600 hover:bg-blue-700 text-white font-semibold px-5 py-2 rounded-lg transition;
+}
+
+.btn-secondary {
+  @apply bg-gray-100 hover:bg-gray-200 text-gray-700 font-medium px-5 py-2 rounded-lg;
+}
+
+/* Notification Container + Notify */
+.notify-container {
+  position: fixed;
+  height: auto;
+  width: 100%;
+  top: 12px;
+  z-index: 9999;
+}
+
+.notify-container .notify {
+  transition: 0.2s ease-in-out;
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: var(--gray-50);
+  left: 90%;
+  transform: translateX(-90%) scale(1);
+  transform-origin: top center;
+  animation: popup 0.1s ease-in-out;
+}
+
+@keyframes popup {
+  0% {
+    transform: translateX(-90%) scale(0.5);
+  }
+
+  100% {
+    transform: translateX(-90%) scale(1);
+  }
+}
+
+.notify-container .notify .notify-body {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  width: 100%;
+  color: #03630f;
+
+}
+
+.notify-container .notify .notify-body .message {
+  font-weight: bold;
+  text-align: left;
+  padding: 0.1rem 0;
+  padding-right: 1.5rem;
+}
+
+.notify-container .notify .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: grid;
+  color: #03630f;
+  place-content: center;
+  font-size: 1.3rem;
+  width: 30px;
+  cursor: pointer;
+}
+
+.notify .progress {
+  width: 100%;
+  height: 5px;
+  border: 1px solid #03630f;
+  /* border-radius: 50px; */
+  overflow: hidden;
+  position: relative;
+}
+
+.notify .progress .progress-style {
+  height: 5px;
+  width: 100%;
+  animation-name: progress;
+  animation-timing-function: linear;
+}
+
+
+@keyframes progress {
+  from {
+    width: 0%;
+  }
+
+  to {
+    width: 100%;
+  }
+}
+
+.notify .progress .progress-status {
+  position: absolute;
+  top: -1px;
+  font-size: 8px;
+  color: #03630f;
+}
+
+.notify {
+  animation: popup 0.25s ease-out;
+}
+
+.notify.closing {
+  animation: popout 0.3s ease-in forwards;
+}
+
+@keyframes popout {
+  to {
+    opacity: 0;
+    transform: translateX(-90%) scale(0.85);
+  }
+}
+
+
+/*  */
+
+/* input Float css */
+.floating-field {
+  position: relative;
+  width: 100%;
+  margin: 4px auto;
+}
+
+.floating-input {
+  width: 100%;
+  padding: 14px 12px;
+  border: 1px solid var(--gray-100);
+  color: var(--gray-700);
+  border-radius: 8px;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.fake-floating-input {
+  border: 1px solid var(--gray-100);
+  width: 100%;
+  border-radius: 8px;
+  color: var(--gray-700);
+  background: transparent;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.floating-input2 {
+  width: 100%;
+  padding: 14px 12px;
+  color: var(--gray-700);
+  border: 1px solid transparent;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.floating-input:focus {
+  border-color: var(--blue-600);
+}
+
+.fake-floating-input:focus {
+  border-color: var(--blue-600);
+}
+
+/* Label */
+.floating-label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--theme);
+  padding: 0 4px;
+  font-size: 16px;
+  color: var(--gray-600);
+  pointer-events: none;
+  transition: all 0.2s ease;
+}
+
+.floating-input:focus+.floating-label,
+.floating-input:not(:placeholder-shown)+.floating-label {
+  top: -0px;
+  font-size: 12px;
+  color: var(--blue-600);
+}
+
+.fake-floating-input:focus+.floating-label,
+.fake-floating-input:not(:placeholder-shown)+.floating-label {
+  top: -0px;
+  font-size: 12px;
+  color: var(--blue-600);
+}
+
+.floating-input2:focus+.floating-label,
+.floating-input2:not(:placeholder-shown)+.floating-label {
+  top: -0px;
+  font-size: 12px;
+  color: var(--blue-600);
+}
+
+/* Error state */
+.floating-input.error {
+  border-color: #dc2626;
+}
+
+.floating-input.error+.floating-label {
+  color: #dc2626;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+
+/*  */
+/* ------- Media Query ----------*/
+@media screen and (max-width:376px) {
+  .notify-container .notify {
+    left: 50%;
+    transform: translateX(-50%) scale(1);
+  }
+
+  @keyframes popup {
+    0% {
+      transform: translateX(-50%) scale(.2);
+    }
+
+    100% {
+      transform: translateX(-50%) scale(1);
+    }
+  }
+
+  @keyframes popout {
+    to {
+      opacity: 0;
+      transform: translateX(-50%) scale(0.85);
+    }
+  }
+
+}
+/* 
+@media screen and (max-width: 800px) and (min-width: 600px) {
+  .sidebar {
+    width: 5rem;
+    padding: 0.25rem;
+  }
+
+  .sidebar .label {
+    display: none;
+  }
+
+  .sidebar .logo-text {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .sm-util {
+    display: none;
+  }
+} */
