@@ -1,70 +1,140 @@
-# Getting Started with Create React App
+# BAuth Client – React Authentication Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern client-side authentication frontend built with React (CRA), focused on clean routing, global auth state management, and real-world SPA authentication flows.
 
-## Available Scripts
+🚀 Live Demo: https://joinshivam-bauth.vercel.app  
+📦 Repository: https://github.com/joinshivam/bauth-client
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## 📌 Project Overview
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+BAuth Client is a **scratch-built React authentication frontend** that demonstrates how a real-world authentication system behaves on the client side.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+The project focuses on:
+- Public vs Protected routes
+- Global user state handling using Auth Context
+- Dynamic user-based routing
+- SPA navigation using React Router DOM
+- Session-aware UI behavior
 
-### `npm test`
+This project is designed as a **client auth layer** that can integrate with any authentication API.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## 🔑 Key Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Public & Protected Route Separation
+- Login & Signup Flow
+- Global Authentication State (Context API)
+- Dynamic Routes using Username
+- User Dashboard & Profile Pages
+- Theme Toggle (Dark / Light)
+- Active Sessions & Login History View
+- Logout from All Sessions (Security Feature)
+- SPA Navigation (No Page Reloads)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧠 Authentication Flow
 
-### `npm run eject`
+### Public Routes (Accessible without login)
+- `/` – Landing / Index Page
+- `/login` – Existing user login
+- `/signup` – New user registration
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### After User Login
+- Header UI switches to **logged-in mode**
+- Login / Signup buttons disappear
+- Public auth routes become inaccessible
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Protected Routes (User-specific)
+After login, the user is redirected to:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- `/:username` – User Dashboard
+- `/:username/profile` – Personal information
+- `/:username/privacy` – Privacy settings
+- `/:username/security` – Sessions & security
+- `/:username/settings` – App preferences
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+All routes are dynamically controlled based on authentication state.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠 Tech Stack
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Frontend
+- React (CRA)
+- React Router DOM
+- Context API (Global Auth State)
+- JavaScript (ES6+)
+- CSS / UI-based theming
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Architecture
+- Single Page Application (SPA)
+- Client-side route protection
+- Centralized authentication context
 
 ### Deployment
+- Vercel
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+---
 
-### `npm run build` fails to minify
+## ⚙️ Installation & Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Clone the repository
+```bash
+git clone https://github.com/joinshivam/bauth-client.git
+cd bauth-client
+
+npm install
+npm start
+
+The app will be available at:
+http://localhost:3000
+
+## Project Structure
+
+src/
+├── components/
+├── pages/
+├── context/
+│   └── AuthContext.jsx
+├── routes/
+├── utils/
+├── App.js
+└── index.js
+
+## Security & Session Handling
+
+Authentication state is managed globally
+UI access is strictly controlled via protected routes
+User can view active sessions
+“Logout from everywhere” option for suspicious activity
+Public routes are blocked once user is authenticated
+
+#Known Limitations
+
+Client-side authentication only
+No OAuth (Google / GitHub) support yet
+No refresh token handling
+API-level security depends on backend implementation
+Not optimized for large-scale production use
+
+## Future Improvements
+
+OAuth login (Google / GitHub)
+Refresh token & session expiry handling
+Role-based access control
+Better error handling & validations
+Backend API integration examples
+
+## Author
+Shivam
+GitHub: https://github.com/joinshivam
+Project Repo: https://github.com/joinshivam/bauth-client
+
+## Support
+If you find this project useful or learned something from it,
+please consider giving it a ⭐ on GitHub — it really helps!
+
