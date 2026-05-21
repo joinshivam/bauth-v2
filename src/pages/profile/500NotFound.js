@@ -5,7 +5,7 @@ const ERROR500 = () => {
             <h1 className="text-6xl font-bold text-pinkOrangeBrand mb-4">Server Crash, 500 Internal Error</h1>
             <p className="text-2xl mb-6 text-pinkOrangeBrand">There is a Server Error</p>
             <Link
-                to="/serverError"
+                to="/"
                 className="px-6 py-3 bg-pinkOrangeBrand text-white rounded-lg shadow-lg hover:bg-indigo-700 transition"
             >
                 Refresh

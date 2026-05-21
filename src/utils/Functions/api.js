@@ -1,4 +1,4 @@
-const API_BASE = process.env.REACT_APP_API_BASE;
+import { API_BASE } from "../../lib/services/api";
 
 export async function apiRequest(url, { method = "GET", body, headers = {} } = {}) {
 

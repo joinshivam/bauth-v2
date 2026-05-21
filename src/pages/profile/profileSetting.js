@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Bell, Shield, Globe, Moon, Save } from "lucide-react";
 import { useTheme } from "../../context/theme.context";
 import Toggle from "../../components/elements/toggle";
@@ -24,7 +24,12 @@ export default function Settings() {
     };
 
     const saveAll = () => {
-        alert("Settings Updated Successfully!");
+        notify({
+            type: "success",
+            title: "Settings saved",
+            message: "Preferences updated successfully",
+            duration: 1500,
+        });
     };
 
     return (
@@ -62,7 +67,7 @@ export default function Settings() {
                     <Label title="Language" />
                     <select
                         value={settings.language}
-                        onToggle={updateLanguage}
+                        onChange={updateLanguage}
                         className="border border-[var(--border)] bg-[var(--theme)] text-[var(--gray-700)] rounded-lg px-3 py-1.5 text-sm"
                     >
                         <option>English</option>

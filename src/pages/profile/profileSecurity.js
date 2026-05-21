@@ -7,15 +7,14 @@ import { logout_all } from "../../utils/Functions/getSession";
 import ConformModal from "../../components/elements/conformModal";
 
 export default function Security() {
-    const { user, setUser, USERNAME } = useAuth();
+    const { user, setUser } = useAuth();
     const navi = useNavigate();
     const [modal, setModal] = useState(false);
     const toggle2FA = () => {
-        console.log("Toggle 2FA");
     };
 
     const changePassword = () => {
-        console.log("Change password");
+
     };
 
     const logoutAll = () => {
@@ -25,7 +24,7 @@ export default function Security() {
     return (
         <div className="bg-[var(--gray-50)] p-6 space-y-8">
             {modal && (
-                <ConformModal Title="Conform Logout Everywhere?" onClose={() => setModal(false)} onConform={() => { logout_all(); navi("/login"); setUser(null) }} fixer={(<div className="text-[var(--gray-600)]">Conform Logout from all devices. this will also logout from this device</div>)} />
+                <ConformModal Title="Conform Logout Everywhere?" onClose={() => setModal(false)} onConform={async () => { await logout_all(); setUser(null); navi("/login"); }} fixer={(<div className="text-[var(--gray-600)]">Conform Logout from all devices. this will also logout from this device</div>)} />
             )}
             <div>
                 <h1 className="text-2xl font-bold text-[var(--gray-800)] flex items-center gap-2">
@@ -69,7 +68,7 @@ export default function Security() {
                     desc="View devices currently logged in"
                     action={
                         <ActionButton>
-                            <NavLink to={`/${USERNAME}/sessions`}>
+                            <NavLink to="/myaccount/sessions">
                                 View sessions
                             </NavLink>
                         </ActionButton>
@@ -82,7 +81,7 @@ export default function Security() {
                     desc="Last 5–10 login attempts"
                     action={
                         <ActionButton>
-                            <NavLink to={`/${USERNAME}/sessions`}>
+                            <NavLink to="/myaccount/sessions">
                                 View sessions
                             </NavLink>
                         </ActionButton>

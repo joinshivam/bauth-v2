@@ -5,38 +5,48 @@ import ProfileHeader from "../../components/profile/ProfileHeader";
 import { useScreenMode } from "../../utils/Functions/resizer";
 
 export function StringToUrls(input) {
-    if (!input) return "";
+  if (!input) return "";
 
-    return input
-        .toString()
-        .trim()
-        .toLowerCase()
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .replace(/[\s_]+/g, "-")
-        .replace(/[^a-z0-9-]/g, "")
-        .replace(/-+/g, "-")
-        .replace(/^-+|-+$/g, "");
+  return input
+    .toString()
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[\s_]+/g, "-")
+    .replace(/[^a-z0-9-]/g, "")
+    .replace(/-+/g, "-")
+    .replace(/^-+|-+$/g, "");
 }
+
+function getProfilePage(pathname) {
+  const segment = pathname.split("/").filter(Boolean)[1];
+  return segment || "home";
+}
+
 export default function ProfileLayout() {
-    const { user, logout } = useAuth();
-    const location = useLocation();
-    const mode = useScreenMode();
-    const isMobile = mode === "mobile";
+  const { user, logout } = useAuth();
+  const { pathname } = useLocation();
 
-    const page = location.pathname.split("/")[2] || "hmrs";
+  const mode = useScreenMode();
+  const isMobile = mode === "mobile";
+  const page = getProfilePage(pathname);
 
+  return (
+    <div className="gpu-safe h-[100dvh] bg-[var(--gray-50)] flex overflow-hidden">
+      <ProfileSidebar activePage={page} />
 
-    return (
-        <div className="max-h-[100dvh] bg-[var(--gray-50)] flex">
-            <ProfileSidebar activePage={page} />
+      <main className="flex-1 min-w-0 flex flex-col">
+        <ProfileHeader user={user} log={logout} page={page} />
 
-            <main className="flex-1 ">
-                <ProfileHeader user={user} log={logout} page={page} />
-                <div className={`${isMobile ? "mt-1 space-y-3 h-[88.3dvh] min-h-[87dvh]" : "mt-10 space-y-6 h-[83dvh]"}  overflow-y-auto`}>
-                    <Outlet />
-                </div>
-            </main>
+        <div
+          className={`flex-1 overflow-y-auto ${
+            isMobile ? "mt-1 space-y-3" : "mt-10 space-y-6"
+          }`}
+        >
+          <Outlet />
         </div>
-    );
+      </main>
+    </div>
+  );
 }

@@ -1,13 +1,4 @@
-import {
-    User,
-    Settings,
-    Shield,
-    Bell,
-    Monitor,
-    Lock,
-    FanIcon,
-    LogOut,
-} from "lucide-react";
+import { User, Settings, Shield, Bell, Monitor, Lock, FanIcon, LogOut, X, MenuIcon } from "lucide-react";
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import SidebarUtility from "./utilMenu";
@@ -22,7 +13,7 @@ export default function ProfileSidebar({ activePage }) {
     const { open, toggle, closeSidebar } = useSidebar();
     const [spin, setSpin] = useState(true);
     const [modal, setModal] = useState(false);
-    const { USERNAME, logout } = useAuth();
+    const { logout } = useAuth();
 
     const handleToggle = (e) => {
         setSpin(true);
@@ -50,10 +41,23 @@ export default function ProfileSidebar({ activePage }) {
                     </div>
                 )}
                 <ul className={`space-y-2 min-h-full ${isMobile && (open ? "" : "absolute -z-50 -translate-x-20")}`}>
+                    {isMobile && (
+                        <button
+                            type="button"
+                            onClick={toggle}
+                            className={`absolute right-2 h-8 w-8 grid place-items-center bg-[var(--theme)] border shadow-sm transition ${open
+                                ? "text-blue-600 border-[var(--gray-800)]"
+                                : "text-[var(--gray-800)] border-[var(--border)]"
+                                }`}
+                            aria-label="Toggle sidebar"
+                        >
+                            {open ? <X size={20} /> : <MenuIcon size={20} />}
+                        </button>
+                    )}
                     <div className={`${open && "px-6"}`}>
                         <SidebarItem
                             logo={"/favicon.png"}
-                            nav={"/" + USERNAME}
+                            nav={"/myaccount"}
                             collapsed={!open}
                         />
                     </div>

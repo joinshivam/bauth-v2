@@ -1,12 +1,10 @@
-import { useAuth, usernameTOurl } from "../context/auth.context"
-import { Navigate, useLocation, Outlet } from "react-router-dom";
+import { useAuth } from "../context/auth.context"
+import { Outlet } from "react-router-dom";
 import DotBounce from "../components/loader/dotBounce"
 
 
 export default function Public() {
-    const { user, USERNAME, loading } = useAuth();
-    const location = useLocation();
-    const from = location.state?.from?.pathname || `/${USERNAME}`
+    const { user, loading } = useAuth();
     if (loading && !user) {
         return (
             <div className="flex justify-center bg-white h-screen items-center">
@@ -16,9 +14,6 @@ export default function Public() {
                 </div>
             </div >
         )
-    }
-    if (user) {
-        return <Navigate to={`/${USERNAME || usernameTOurl(user?.username)}`} state={from} replace />;
     }
     return <Outlet />;
 }

@@ -3,10 +3,19 @@ import { Monitor, Smartphone, ShieldCheck, Clock } from "lucide-react";
 import { getSessions } from "../../utils/Functions/getSession"
 
 function formatSessions(apiResponse, historyLimit = 5) {
-    if (!apiResponse?.sessions || !Array.isArray(apiResponse.sessions)) {
+    if (!apiResponse?.sessions) {
         return { activeSessions: [], loginHistory: [] };
     }
-
+    const sessionList = Array.isArray(apiResponse.sessions)
+        ? apiResponse.sessions
+        : Object.entries(apiResponse.sessions).map(([id, s]) => ({
+            ...s,
+            id,
+            sessionId: id,
+            current: id === apiResponse.active,
+            revoked: s.revoked || 0,
+            sort_time: s.created_at || new Date().toISOString()
+        }));
     const now = Date.now();
 
     const parseDevice = (ua = "") => {
@@ -43,11 +52,11 @@ function formatSessions(apiResponse, historyLimit = 5) {
     const activeSessions = [];
     const loginHistory = [];
 
-    apiResponse.sessions.forEach((s, index) => {
+    sessionList.forEach((s, index) => {
         const base = {
             id: s.id,
             device: parseDevice(s.user_agent),
-            ip: s.ip_address,
+            ip: s.ip_address || s.ip || "Unknown IP",
             location: "Unknown location",
         };
 
@@ -55,7 +64,7 @@ function formatSessions(apiResponse, historyLimit = 5) {
             activeSessions.push({
                 ...base,
                 lastActive: timeAgo(s.sort_time),
-                current: index === 0,
+                current: s.current || index === 0,
             });
         } else {
             loginHistory.push({

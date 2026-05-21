@@ -9,10 +9,10 @@ const DotBounce = ({
     return (
         <div className="checking-loader" style={{
             gap: `${gap}px`,
-            ["--loader-size"]: `${size}px`,
-            ["--loader-color"]: color,
-            ["--loader-speed"]: `${speed}s`,
-            ["--loader-bounce"]: `${bounce}px`,
+            "--loader-size": `${size}px`,
+            "--loader-color": color,
+            "--loader-speed": `${speed}s`,
+            "--loader-bounce": `${bounce}px`,
         }}>
             <span></span>
             <span></span>

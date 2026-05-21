@@ -43,9 +43,10 @@ export default function PrivacySettings() {
                     action={
                         <select
                             value={profileVisibility}
-                            onChange={() =>
-                                notify({ message: "Default : private , feature come soon", title: "Unable to Update", duration: 3000, Type: "info" })
-                            }
+                            onChange={(event) => {
+                                setProfileVisibility(event.target.value);
+                                notify({ message: "Profile visibility updated", title: "Privacy", duration: 3000, type: "info" });
+                            }}
                             className="border border-[var(--border)] bg-[var(--theme)] text-[var(--gray-700)] rounded-lg px-3 py-1.5 text-sm"
                         >
                             <option value="public">Public</option>
@@ -64,7 +65,8 @@ export default function PrivacySettings() {
                         <Toggle
                             enabled={emailVisibility}
                             onToggle={() => {
-                                notify({ message: `feature come soon , ${!emailVisibility ? "off" : "on"}`, title: "Unable to Update", duration: 3000, Type: "info" })
+                                setEmailVisibility((value) => !value);
+                                notify({ message: `Email visibility ${!emailVisibility ? "on" : "off"}`, title: "Privacy", duration: 3000, type: "info" });
                             }}
                         />
                     }
@@ -81,8 +83,8 @@ export default function PrivacySettings() {
                         <Toggle
                             enabled={activityTracking}
                             onToggle={() => {
-                                notify({ message: `feature come soon , ${!activityTracking ? "off" : "on"}`, title: "Unable to Update", duration: 3000, Type: "info" })
-
+                                setActivityTracking((value) => !value);
+                                notify({ message: `Activity tracking ${!activityTracking ? "on" : "off"}`, title: "Privacy", duration: 3000, type: "info" });
                             }}
                         />
                     }
@@ -99,8 +101,8 @@ export default function PrivacySettings() {
                         <Toggle
                             enabled={searchIndexing}
                             onToggle={() => {
-                                notify({ message: `feature come soon , ${!searchIndexing ? "off" : "on"}`, title: "Unable to Update", duration: 3000, Type: "info" })
-
+                                setSearchIndexing((value) => !value);
+                                notify({ message: `Search indexing ${!searchIndexing ? "on" : "off"}`, title: "Privacy", duration: 3000, type: "info" });
                             }}
                         />
                     }
@@ -117,7 +119,7 @@ export default function PrivacySettings() {
                         <button
                             onClick={() => {
                                 // setEditModal("recovery")
-                                notify({ message: `feature come soon`, title: "Unable to Update", duration: 3000, Type: "info" })
+                                notify({ message: `Feature coming soon`, title: "Recovery email", duration: 3000, type: "info" });
 
                             }}
                             className="flex items-center gap-1 text-[var(--blue-600)] hover:underline text-sm"

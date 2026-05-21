@@ -1,12 +1,7 @@
-import { apiRequest } from "./api"
-const API_BASE = process.env.REACT_APP_API_BASE;
+import api from "../../lib/services/api";
 export const getSessions = async () => {
-    return await apiRequest("/api/auth/session-history", {
-        method: "GET",
-    });
+    return await api.get("/auth/sessions");
 };
 export const logout_all = async () => {
-    return await apiRequest("/api/auth/logout-all", {
-        method: "GET",
-    });
+    return await api.post("/users/logout");
 };

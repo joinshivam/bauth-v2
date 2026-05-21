@@ -114,17 +114,61 @@ code {
   background-color: var(--scrollbar-thumb-hover);
 }
 
-body {
-  background: var(--theme-var-bg);
-  /* color: var(--theme-var-text); */
-  transition: background 0.2s ease, color 0.2s ease;
-  /* color: #fafafb;
-  color: #4290EC;
-  color: #A64DD9;
-  color: #F07969;
-  color: #F2A04C;
-  color: #ED8AC7;
-  color: #56C6E8;
-  color: #56c6e8; */
+html,
+body,
+#root {
+  min-height: 100%;
+  background: var(--theme);
+}
 
+body {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Avoid Chrome GPU/compositor black-fade glitches during route changes */
+.gpu-safe {
+  opacity: 1 !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  contain: paint;
+}
+
+.form-busy {
+  opacity: 1 !important;
+  filter: none !important;
+  pointer-events: none;
+  user-select: none;
+}
+
+.form-loading-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  background: color-mix(in srgb, var(--theme) 82%, transparent);
+  pointer-events: auto;
+}
+
+.focus-flash {
+  animation: focus-flash 1.4s ease-out;
+  outline: 2px solid var(--blue-600);
+  outline-offset: 2px;
+}
+
+@keyframes focus-flash {
+  0% {
+    background: var(--blue-50);
+    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.16);
+  }
+
+  100% {
+    background: transparent;
+    box-shadow: none;
+  }
 }

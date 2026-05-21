@@ -1,9 +1,8 @@
-import { useState, useEffect, useRef, useContext, createContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext, createContext } from "react";
 import { postSync, listenSync } from "../utils/crossTab";
-
+import api from "../lib/services/api";
+import { clearAccountCenterGrant } from "../utils/accountCenterFlow";
 const AuthContext = createContext();
-const API_BASE = process.env.REACT_APP_API_BASE;
 
 
 export function usernameTOurl(input) {
@@ -23,168 +22,137 @@ export function usernameTOurl(input) {
 }
 export function AuthProvider({ children }) {
     const [user, setUser] = useState(null);
+    const [activeUser, setActiveUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const hasHydrated = useRef(false);
-
-
-    const navigate = useNavigate();
-
     const isLoggedIn = !!user;
-    const USERNAME = user ? usernameTOurl(user.username) : "";
+    const USERNAME = "u";
 
     useEffect(() => {
-        const unsubscribe = listenSync(({ type }) => {
-            if (type === "LOGOUT") {
+        const initAuth = async () => {
+            setLoading(true);
+            try {
+                const data = await api.get("/auth");
+                if (!data?.user?.username || !data?.success || !data?.sessionId) {
+                    setUser(null);
+                    setActiveUser(null);
+                    return;
+                }
+                setActiveUser(data?.sessionId);
+                setUser(data?.user);
+            } catch {
                 setUser(null);
-                navigate("/login");
+                setActiveUser(null);
+            } finally {
+                setTimeout(() => setLoading(false), 500);
             }
-
-            if (type === "LOGIN") {
-                initAuth();
+        };
+        initAuth();
+        const unsubscribe = listenSync(async ({ type }) => {
+            if (type === "LOGIN" || type === "LOGOUT" || type === "SWITCH_ACCOUNT" || type === "REMOVE_ACCOUNT") {
+                try {
+                    if (type === "LOGOUT" || type === "REMOVE_ACCOUNT") {
+                        // clearAccountCenterGrant();
+                    }
+                    const data = await api.get("/auth");
+                    const activeUser = data?.user || null;
+                    setUser(activeUser || null);
+                    setActiveUser(data?.sessionId || null);
+                } catch {
+                    setUser(null);
+                    setActiveUser(null);
+                }
             }
         });
-
         return unsubscribe;
-    }, [navigate]);
-
-    const initAuth = async () => {
-        if (hasHydrated.current) return;
-        try {
-            const res = await fetch(`${API_BASE}/api/auth/me`, {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" }
-            });
-            if (!res?.ok) throw new Error("unauthorized");
-
-            const data = await res.json();
-            setUser(data.user || null);
-            hasHydrated.current = true;
-        } catch (err) {
-            setUser(null);
-        } finally {
-            setLoading(false);
-        }
-    };
-
-    useEffect(() => {
-        initAuth();
     }, []);
-    const login = async (identifier, password) => {
-        try {
-            const value = identifier.trim().toLowerCase();
 
-            const res = await fetch(`${API_BASE}/api/auth/login`, {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    username: value.split("@")[0],
-                    password
-                }),
+    const login = async ({ username, password }) => {
+        try {
+            const value = username.trim().toLowerCase();
+            const data = await api.post("/auth/signin", {
+                username: value.split("@")[0], password
             });
 
-            const data = await res.json();
-
-            if (!res.ok) {
-                return {
-                    success: false,
-                    field: data?.field || "global",
-                    message: data?.msg || "Login failed"
-                };
-            }
-
-            setUser(data.user);
+            setUser(data?.user);
+            setActiveUser(data?.sessionId || null);
             postSync({ type: "LOGIN" });
-            navigate(`/${usernameTOurl(data.user.username)}`);
-
-            return { success: true };
+            return {
+                success: true,
+                field: "global",
+                msg: "Signin Successful!",
+                sessionId: data?.sessionId || null,
+                user: data?.user || null
+            };
         } catch (err) {
-            console.log("error login")
             return {
                 success: false,
                 field: "global",
-                message: err.message
+                msg: err?.message
             };
         }
     };
-    const isUserExist = async (username) => {
-        const res = await fetch(`${API_BASE}/api/auth/username-check`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username: username })
-        });
-        const data = await res.json();
-        return data;
-    }
-    const isUser = async (username) => {
-        const res = await fetch(`${API_BASE}/api/auth/username`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ username: username })
-        });
-        const data = await res.json();
-        return data;
-    }
-    const signup = async (name, dob, gender, username, password, aggrement) => {
+    const signup = async ({ name, dob, gender, username, password, aggrement }) => {
         try {
-            const res = await fetch(`${API_BASE}/api/auth/signup`, {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-type": "application/json" },
-                body: JSON.stringify({ name, dob, gender, username, password, aggrement }),
-            });
-            const data = await res.json();
-            if (!res.ok) {
-                throw new Error(data.message || "unable to create new account");
-            };
+            const data = await api.post("/auth/signup", { name, dob, gender, username, password, aggrement });
             setUser(data?.user);
-            console.log(data?.user.username, data, usernameTOurl(data?.user.username));
-            setUser(data.user);
+            setActiveUser(data?.sessionId || null);
             postSync({ type: "LOGIN" });
-            // navigate(`/${usernameTOurl(data.user.username)}`);
-
-            return { success: true };
+            return {
+                success: true,
+                field: "global",
+                msg: "Signup Successful!",
+                sessionId: data?.sessionId || null,
+                user: data?.user || null
+            };
         } catch (err) {
-            return { success: false, feild: "global", message: err.message };
+            return { success: false, field: "global", msg: err?.message };
         }
     };
     const logout = async () => {
         setLoading(true);
         try {
-            await fetch(`${API_BASE}/api/auth/logout`, {
-                method: "POST",
-                credentials: "include"
-            });
-        } finally {
-            setUser(null);
-            setLoading(false);
+            await api.post("/user/logout");
+            // clearAccountCenterGrant();
+            try {
+                const data = await api.get("/auth");
+                setUser(data?.user || null);
+                setActiveUser(data?.sessionId || null);
+            } catch {
+                setUser(null);
+                setActiveUser(null);
+            }
             postSync({ type: "LOGOUT" });
+        } finally {
+            setLoading(false);
         }
     };
+    const switchAccount = async (sessionId) => {
+        await api.post("/user/switch", { sessionId });
+        const data = await api.get("/auth");
+        setUser(data?.user || null);
+        setActiveUser(data?.sessionId || null);
+        postSync({ type: "SWITCH_ACCOUNT" });
+    }
+    const removeAccount = async (sessionId) => {
+        await api.post("/user/remove", { sessionId });
+        clearAccountCenterGrant();
+        try {
+            const data = await api.get("/auth");
+            setUser(data?.user || null);
+            setActiveUser(data?.sessionId || null);
+        } catch {
+            setUser(null);
+            setActiveUser(null);
+        }
+        postSync({ type: "REMOVE_ACCOUNT" });
+    }
 
     return (
-        <AuthContext.Provider
-            value={{
-                API_BASE,
-                user,
-                setUser,
-                isLoggedIn,
-                USERNAME,
-                signup,
-                loading,
-                setLoading,
-                isUserExist,
-                isUser,
-                login,
-                logout
-            }}
-        >
+        <AuthContext.Provider value={{ user, USERNAME, isLoggedIn, loading, activeUser, setLoading, setActiveUser, setUser, login, signup, logout, switchAccount, removeAccount }}>
             {children}
         </AuthContext.Provider>
     );
 }
-
 export function useAuth() {
     return useContext(AuthContext);
 }
