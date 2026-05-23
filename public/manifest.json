@@ -1,25 +1,47 @@
 {
   "short_name": "Bauth",
-  "name": "Profile Management System",
+  "name": "Bauth - Multi Session Authentication Platform",
+  "description": "SSO, IDP, Multi Session Login and Account Management Platform",
+
   "icons": [
     {
-      "src": "favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "src": "/icons/icon-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
     },
     {
-      "src": "favicon.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "/icons/icon-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
     },
     {
-      "src": "favicon.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "/icons/icon-128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
   ],
-  "start_url": ".",
+
+  "start_url": "/",
+  "scope": "/",
+
   "display": "standalone",
+  "orientation": "portrait",
+
   "theme_color": "#000000",
   "background_color": "#ffffff"
 }

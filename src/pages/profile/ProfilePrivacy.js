@@ -12,6 +12,7 @@ import { useNotify } from "../../context/notifyContext";
 import EditModal from "../../components/elements/InputModal"
 import Toggle from "../../components/elements/toggle";
 import { useScreenMode } from "../../utils/Functions/resizer";
+import { Helmet } from "react-helmet-async";
 
 export default function PrivacySettings() {
     const { notify } = useNotify();
@@ -25,6 +26,10 @@ export default function PrivacySettings() {
 
     return (
         <div className={`bg-[var(--gray-50)] ${isMobile ? "p-4 space-y-6" : "p-6 space-y-8"}`}>
+            <Helmet>
+                <title>Privaicy - bauth</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             <div>
                 <h1 className="text-2xl font-bold text-[var(--gray-800)] flex items-center gap-2">
                     <Shield size={22} />

@@ -5,6 +5,7 @@ import Toggle from "../../components/elements/toggle"
 import { useNavigate, NavLink } from "react-router-dom";
 import { logout_all } from "../../utils/Functions/getSession";
 import ConformModal from "../../components/elements/conformModal";
+import { Helmet } from "react-helmet-async";
 
 export default function Security() {
     const { user, setUser } = useAuth();
@@ -23,6 +24,10 @@ export default function Security() {
 
     return (
         <div className="bg-[var(--gray-50)] p-6 space-y-8">
+            <Helmet>
+                <title>Security - bauth</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             {modal && (
                 <ConformModal Title="Conform Logout Everywhere?" onClose={() => setModal(false)} onConform={async () => { await logout_all(); setUser(null); navi("/login"); }} fixer={(<div className="text-[var(--gray-600)]">Conform Logout from all devices. this will also logout from this device</div>)} />
             )}

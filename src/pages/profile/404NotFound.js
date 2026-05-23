@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const NotFoundPage = () => {
     return (
         <div className="flex flex-col items-center justify-center min-h-[60vh] text-center bg-[var(--gray-100)]">
+            <Helmet>
+                <title>Unknown Page - bauth</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             <h1 className="text-6xl font-bold text-[var(--indigo-600)] mb-4">Unknown Route</h1>
             <p className="text-2xl mb-6">Oops! Page not found</p>
             <Link

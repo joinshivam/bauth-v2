@@ -12,6 +12,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useScreenMode } from "../../utils/Functions/resizer";
+import { Helmet } from "react-helmet-async";
 
 const MOCK_NOTIFS = [
     {
@@ -80,6 +81,10 @@ export default function Notifications() {
 
     return (
         <div className="bg-[var(--gray-50)]">
+            <Helmet>
+                <title>Notifications - bauth</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between p-6">
                 <h1 className="text-2xl font-bold text-[var(--gray-800)] flex items-center gap-2">
                     <Bell size={22} /> Notifications

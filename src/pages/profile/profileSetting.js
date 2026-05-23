@@ -3,6 +3,7 @@ import { Bell, Shield, Globe, Moon, Save } from "lucide-react";
 import { useTheme } from "../../context/theme.context";
 import Toggle from "../../components/elements/toggle";
 import { useNotify } from "../../context/notifyContext";
+import { Helmet } from "react-helmet-async";
 
 export default function Settings() {
     const { theme, isDark, toggleTheme } = useTheme();
@@ -34,6 +35,10 @@ export default function Settings() {
 
     return (
         <div className=" bg-[var(--gray-50)] p-6 space-y-8">
+            <Helmet>
+                <title>Settings - bauth</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             {/* HEADER */}
             <div>
                 <h1 className="text-2xl font-bold text-[var(--gray-800)]">Settings</h1>

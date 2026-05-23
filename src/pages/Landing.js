@@ -4,7 +4,7 @@ import Slider from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Avatar from "../components/elements/avtar"
+import Avatar from "../components/elements/avtar";
 import {
     FiCheckCircle,
     FiUsers,
@@ -23,6 +23,7 @@ import {
 import { Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { CgDetailsMore } from "react-icons/cg";
 import { useAuth } from "../context/auth.context";
+import { Helmet } from "react-helmet-async";
 
 const apps = [
     { name: "Account", icon: <FaUserCircle /> },
@@ -65,6 +66,10 @@ export default function LandingPage() {
 
     return (
         <div className="w-full min-h-screen text-[var(--text-primary)] bg-[var(--surface)]">
+            <Helmet>
+                <title>Info - bauth</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             <header className="sticky top-0 z-50 bg-[var(--surface)] backdrop-blur-xl border-b border-white/20 dark:border-white/10 shadow-[0_8px_30px_rgba(0,0,0,0.08)]">
                 <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
                     <div className="flex items-baseline gap-1 cursor-pointer">
@@ -79,13 +84,13 @@ export default function LandingPage() {
                     </div>
 
                     <nav className="hidden md:flex gap-8 text-[var(--text-secondary)] font-medium">
-                        <Link to="#about" className="hover:text-[var(--accent)]">
+                        <Link to="/about" className="hover:text-[var(--accent)]">
                             About
                         </Link>
                         <Link to="#projects" className="hover:text-[var(--accent)]">
                             Contribution
                         </Link>
-                        <Link to="#contact" className="hover:text-[var(--accent)]">
+                        <Link to="/contact" className="hover:text-[var(--accent)]">
                             Contact
                         </Link>
                         <Link to="#subscribe" className="hover:text-[var(--accent)]">

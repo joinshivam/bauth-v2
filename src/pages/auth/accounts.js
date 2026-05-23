@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuth } from "../../context/auth.context";
 import FormTop from "../../components/loader/formTop";
 import api, { API_BASE } from "../../lib/services/api";
+import { Helmet } from 'react-helmet-async';
 import {
   ACCOUNT_CENTER_PROMPTS,
   ACCOUNT_CENTER_ROLES,
@@ -181,7 +182,7 @@ export default function Account() {
           prompt: ACCOUNT_CENTER_PROMPTS.CONTINUE,
           returnTo: nextFlowRole === ACCOUNT_CENTER_ROLES.ACCOUNT_MANAGER
             ? accountReturnTo
-          : "",
+            : "",
         });
 
         redirectingRef.current = true;
@@ -282,6 +283,11 @@ export default function Account() {
 
   return (
     <div className="container flex sm:justify-center items-center min-w-full h-[100dvh] bg-[var(--theme)] px-4">
+      <Helmet>
+        <title>BAuth - Accounts</title>
+        <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+      </Helmet>
+
       <div className="gpu-safe max-w-[500px] w-full relative px-4 lg:p-6 flex flex-col gap-6 rounded-lg shadow-md shadow-[var(--border)]">
         <Header flow={flow} />
 

@@ -3,6 +3,7 @@ import { useAuth } from "../../context/auth.context";
 import ProfileSidebar from "../../components/profile/ProfileSidebar";
 import ProfileHeader from "../../components/profile/ProfileHeader";
 import { useScreenMode } from "../../utils/Functions/resizer";
+import { Helmet } from "react-helmet-async";
 
 export function StringToUrls(input) {
   if (!input) return "";
@@ -34,15 +35,18 @@ export default function ProfileLayout() {
 
   return (
     <div className="gpu-safe h-[100dvh] bg-[var(--gray-50)] flex overflow-hidden">
+      <Helmet>
+        <title>Myaccount - bauth</title>
+        <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+      </Helmet>
       <ProfileSidebar activePage={page} />
 
       <main className="flex-1 min-w-0 flex flex-col">
         <ProfileHeader user={user} log={logout} page={page} />
 
         <div
-          className={`flex-1 overflow-y-auto ${
-            isMobile ? "mt-1 space-y-3" : "mt-10 space-y-6"
-          }`}
+          className={`flex-1 overflow-y-auto ${isMobile ? "mt-1 space-y-3" : "mt-10 space-y-6"
+            }`}
         >
           <Outlet />
         </div>

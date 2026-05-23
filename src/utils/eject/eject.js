@@ -14,6 +14,9 @@ import ProfilePrivacy from "../../pages/profile/ProfilePrivacy";
 import ProfileNotifications from "../../pages/profile/notification";
 import Sessions from "../../pages/profile/deviceAndSessions";
 import NotifyContainer from '../../components/notify/notifyContainer';
+import AboutPage from '../../pages/about';
+import ContactPage from '../../pages/contact';
+import { PrivacyPolicyPage, TermsPage, ConditionsPage, TermsAndConditionsPage } from '../../pages/policyPages';
 import E404 from "../../pages/profile/404NotFound"
 import A404 from "../../pages/notfound"
 import E500 from "../../pages/profile/500NotFound"
@@ -53,6 +56,12 @@ const Eject = () => {
                 <Route path="/account-center" element={<Accounts />} />
                 <Route path="/account-center/" element={<Accounts />} />
                 <Route path="/sso/select" element={<SsoSelect />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/conditions" element={<ConditionsPage />} />
+                <Route path="/term_condition" element={<TermsAndConditionsPage />} />
 
                 <Route element={<ProtectedRoute />}>
                     <Route path={`/myaccount`} element={<SidebarProvider><Profile /></SidebarProvider>} >

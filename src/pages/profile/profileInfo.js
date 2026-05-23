@@ -6,6 +6,7 @@ import { useScreenMode } from "../../utils/Functions/resizer";
 import { useAuth } from "../../context/auth.context";
 import Avatar from "../../components/elements/avtar";
 import { useFocusFlash } from "../../hooks/useFocusFlash";
+import { Helmet } from "react-helmet-async";
 import {
   updateName,
   updatePhone,
@@ -155,6 +156,10 @@ export default function Profile() {
 
   return (
     <div className={`${isMobile ? "p-4 space-y-4" : "p-6 space-y-8"}`}>
+      <Helmet>
+        <title>Profile Info - bauth</title>
+        <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+      </Helmet>
       <div>
         <h1 className="text-2xl font-bold text-[var(--gray-800)]">Profile</h1>
         <p className="text-sm text-[var(--gray-600)]">

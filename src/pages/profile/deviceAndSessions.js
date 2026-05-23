@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Monitor, Smartphone, ShieldCheck, Clock } from "lucide-react";
 import { getSessions } from "../../utils/Functions/getSession"
+import { Helmet } from "react-helmet-async";
 
 function formatSessions(apiResponse, historyLimit = 5) {
     if (!apiResponse?.sessions) {
@@ -84,6 +85,10 @@ function formatSessions(apiResponse, historyLimit = 5) {
 function SessionSkeleton({ rows = 2 }) {
     return (
         <div className="space-y-3 animate-pulse">
+            <Helmet>
+                <title>Session - loading...</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             {Array.from({ length: rows }).map((_, i) => (
                 <div
                     key={i}
@@ -125,6 +130,10 @@ export default function DeviceSessions() {
 
     return (
         <div className="bg-[var(--gray-50)] p-6 space-y-8">
+            <Helmet>
+                <title>Sessions - bauth</title>
+                <link rel="canonical" href="https://joinshivam-bauth.vercel.app" />
+            </Helmet>
             <div>
                 <h1 className="text-2xl font-bold flex items-center gap-2">
                     <ShieldCheck size={22} />
